@@ -3,7 +3,7 @@
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [
-			"Secnarios-1"
+			"Secnario-1"
 		],
 		"type": "AzureBlobStorage",
 		"typeProperties": {
