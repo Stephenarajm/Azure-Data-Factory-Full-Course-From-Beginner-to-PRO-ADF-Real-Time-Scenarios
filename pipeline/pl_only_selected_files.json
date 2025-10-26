@@ -57,13 +57,13 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@contains(activity('Get Fact_Sales_1 meta').output.childItems[0],'Fact_Sales_1.txt')",
+									"value": "@contains(activity('Get Fact_Sales_1 meta').output.childItems[0],'Fact_Sales_1')",
 									"type": "Expression"
 								}
 							}
 						},
 						{
-							"name": "Copy data1",
+							"name": "Copy data11",
 							"type": "Copy",
 							"dependsOn": [
 								{
@@ -82,8 +82,26 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"wildcardFileName": "*",
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
 								"enableStaging": false
-							}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_tgt_file",
+									"type": "DatasetReference"
+								}
+							]
 						}
 					]
 				}
