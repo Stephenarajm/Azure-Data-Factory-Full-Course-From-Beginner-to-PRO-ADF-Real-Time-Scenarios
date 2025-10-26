@@ -123,7 +123,13 @@
 							"outputs": [
 								{
 									"referenceName": "ds_reporting",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"filename": {
+											"value": "@item().itemName",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
