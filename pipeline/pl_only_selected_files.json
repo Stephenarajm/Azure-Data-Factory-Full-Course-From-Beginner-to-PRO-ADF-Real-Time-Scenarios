@@ -57,7 +57,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@contains(activity('Get Fact_Sales_1 meta').output.childItems[0],'Fact_Sales_1')",
+									"value": "@contains(activity('Get Fact_Sales_1 meta').output.childItem.name,'Fact_Sales_1')",
 									"type": "Expression"
 								},
 								"ifTrueActivities": [
