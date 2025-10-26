@@ -48,13 +48,31 @@
 						"value": "@activity('Get Fact_Sales_1 meta').output.childItems",
 						"type": "Expression"
 					},
-					"isSequential": true
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Append variable1",
+							"type": "AppendVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "dsadsa",
+								"value": {
+									"value": "@item().name",
+									"type": "Expression"
+								}
+							}
+						}
+					]
 				}
 			}
 		],
 		"variables": {
 			"asa": {
 				"type": "String"
+			},
+			"dsadsa": {
+				"type": "Array"
 			}
 		},
 		"folder": {
