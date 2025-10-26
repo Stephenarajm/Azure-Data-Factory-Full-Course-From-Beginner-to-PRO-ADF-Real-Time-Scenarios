@@ -77,7 +77,7 @@
 							"typeProperties": {
 								"variableName": "dsadsa",
 								"value": {
-									"value": "@item().itemName",
+									"value": "@activity('Get Fact_Sales_1 meta').output.childItems[0]",
 									"type": "Expression"
 								}
 							}
