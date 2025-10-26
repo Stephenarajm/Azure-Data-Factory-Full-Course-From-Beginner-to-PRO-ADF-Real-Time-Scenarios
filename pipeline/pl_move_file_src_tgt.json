@@ -20,7 +20,7 @@
 						"additionalColumns": [
 							{
 								"name": "Owner",
-								"value": "$$FILEPATH"
+								"value": "Steve"
 							}
 						],
 						"storeSettings": {
