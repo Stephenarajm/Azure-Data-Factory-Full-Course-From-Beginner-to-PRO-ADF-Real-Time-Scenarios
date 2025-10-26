@@ -62,7 +62,7 @@
 							"typeProperties": {
 								"variableName": "asa",
 								"value": {
-									"value": "@activity('Get Fact_Sales_1 meta').output.itemName",
+									"value": "@activity('Get Fact_Sales_1 meta').output.childItems",
 									"type": "Expression"
 								}
 							}
