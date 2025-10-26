@@ -117,7 +117,13 @@
 							"inputs": [
 								{
 									"referenceName": "ds_source_param_file",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"p_filename": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
