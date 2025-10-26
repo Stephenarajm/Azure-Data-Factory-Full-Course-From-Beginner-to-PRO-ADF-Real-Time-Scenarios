@@ -96,7 +96,7 @@
 								"sink": {
 									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings"
+										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
@@ -122,7 +122,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "ds_tgt_file",
+									"referenceName": "ds_reporting",
 									"type": "DatasetReference"
 								}
 							]
