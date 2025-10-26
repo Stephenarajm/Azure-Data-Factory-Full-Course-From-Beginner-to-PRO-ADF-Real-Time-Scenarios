@@ -57,7 +57,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@contains(item().name,'Fact_Sales_1')",
+									"value": "@startswith(item().name,'Fact')",
 									"type": "Expression"
 								}
 							}
@@ -131,7 +131,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"filename": {
-											"value": "@activity('Get Fact_Sales_1 meta').output.childItems[0].name",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
