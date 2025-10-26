@@ -32,31 +32,8 @@
 				}
 			},
 			{
-				"name": "Copy data1",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "If Fact_Sales_1 pass",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"enableStaging": false
-				}
-			},
-			{
-				"name": "If Fact_Sales_1 pass",
-				"type": "IfCondition",
+				"name": "ForEach1",
+				"type": "ForEach",
 				"dependsOn": [
 					{
 						"activity": "Get Fact_Sales_1 meta",
@@ -67,10 +44,43 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"expression": {
-						"value": "@contains(activity('Get Fact_Sales_1 meta').output.itemName,'Fact_Sales_1.txt')",
-						"type": "Expression"
-					}
+					"activities": [
+						{
+							"name": "If Fact_Sales_1 pass",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@contains(activity('Get Fact_Sales_1 meta').output.itemName,'Fact_Sales_1.txt')",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Copy Fact_Sales_1 to report",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "If Fact_Sales_1 pass",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"enableStaging": false
+							}
+						}
+					]
 				}
 			}
 		],
