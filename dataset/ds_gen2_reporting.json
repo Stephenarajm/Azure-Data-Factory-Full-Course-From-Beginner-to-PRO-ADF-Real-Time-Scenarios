@@ -2,14 +2,25 @@
 	"name": "ds_gen2_reporting",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_datalake",
+			"referenceName": "ls_tgt1",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_file_name": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation"
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().p_file_name",
+					"type": "Expression"
+				},
+				"folderPath": "reporting",
+				"fileSystem": "target"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

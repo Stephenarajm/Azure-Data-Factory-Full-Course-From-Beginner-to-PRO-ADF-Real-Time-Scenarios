@@ -121,7 +121,10 @@
 										"outputs": [
 											{
 												"referenceName": "ds_gen2_reporting",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"p_file_name": "@activity('Get Fact_Sales_1 meta').output.childItems[0].name"
+												}
 											}
 										]
 									}
