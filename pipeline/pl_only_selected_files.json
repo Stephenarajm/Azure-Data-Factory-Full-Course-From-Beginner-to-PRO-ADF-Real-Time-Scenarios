@@ -90,7 +90,13 @@
 										"inputs": [
 											{
 												"referenceName": "ds_acting_source",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"p_file_name": {
+														"value": "@activity('Get Fact_Sales_1 meta').output.childItems[0].name",
+														"type": "Expression"
+													}
+												}
 											}
 										]
 									}
