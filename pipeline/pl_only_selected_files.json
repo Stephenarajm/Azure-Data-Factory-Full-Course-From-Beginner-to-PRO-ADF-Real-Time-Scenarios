@@ -57,7 +57,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@contains(item().name,'Fact_Sales_1.txt')",
+									"value": "@contains(activity('Get Fact_Sales_1 meta').output.childItems[0],'Fact_Sales_1.txt')",
 									"type": "Expression"
 								}
 							}
@@ -76,7 +76,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "dsadsa",
-								"value": ""
+								"value": {
+									"value": "@item().itemName",
+									"type": "Expression"
+								}
 							}
 						}
 					]
