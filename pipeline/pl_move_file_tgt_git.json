@@ -19,7 +19,8 @@
 						"type": "DelimitedTextSource",
 						"additionalColumns": [
 							{
-								"value": ""
+								"name": "axtion",
+								"value": "data from blob storage"
 							}
 						],
 						"storeSettings": {
