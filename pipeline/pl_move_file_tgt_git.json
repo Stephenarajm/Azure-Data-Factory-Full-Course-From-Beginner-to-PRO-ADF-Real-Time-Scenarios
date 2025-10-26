@@ -48,7 +48,10 @@
 				"inputs": [
 					{
 						"referenceName": "ds_tgt_file",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filenmae": "aa"
+						}
 					}
 				],
 				"outputs": [
