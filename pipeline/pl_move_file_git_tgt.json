@@ -33,14 +33,25 @@
 						}
 					},
 					"sink": {
-						"type": "RestSink",
-						"httpRequestTimeout": "00:05:00",
-						"requestInterval": 10,
-						"requestMethod": "PUT",
-						"writeBatchSize": 10000,
-						"httpCompressionType": "none"
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
 				"inputs": [
 					{
@@ -50,7 +61,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "RestResource1",
+						"referenceName": "ds_tgt_file",
 						"type": "DatasetReference"
 					}
 				]
