@@ -122,10 +122,10 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "ds_gen2_reporting",
+									"referenceName": "ds_target_report",
 									"type": "DatasetReference",
 									"parameters": {
-										"p_file_name": {
+										"p_filename": {
 											"value": "@item().name",
 											"type": "Expression"
 										}
