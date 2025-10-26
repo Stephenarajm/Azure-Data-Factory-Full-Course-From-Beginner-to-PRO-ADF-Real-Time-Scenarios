@@ -81,7 +81,7 @@
 													"recursive": true,
 													"wildcardFolderPath": "csvfiles",
 													"wildcardFileName": {
-														"value": "@item().name",
+														"value": "@activity('Get Fact_Sales_1 meta').output.childItem.name",
 														"type": "Expression"
 													},
 													"enablePartitionDiscovery": false
@@ -114,13 +114,7 @@
 										"inputs": [
 											{
 												"referenceName": "ds_acting_as_src",
-												"type": "DatasetReference",
-												"parameters": {
-													"name": {
-														"value": "@item().name",
-														"type": "Expression"
-													}
-												}
+												"type": "DatasetReference"
 											}
 										],
 										"outputs": [
