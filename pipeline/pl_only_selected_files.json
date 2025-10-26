@@ -44,6 +44,11 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Fact_Sales_1 meta').output.itemName",
+						"type": "Expression"
+					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "If Fact_Sales_1 pass",
