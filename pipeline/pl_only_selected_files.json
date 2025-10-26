@@ -112,7 +112,7 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"p_file_name": {
-														"value": "@activity('Get Fact_Sales_1 meta').output.childItems[0].name",
+														"value": "@item().name",
 														"type": "Expression"
 													}
 												}
@@ -123,7 +123,10 @@
 												"referenceName": "ds_gen2_reporting",
 												"type": "DatasetReference",
 												"parameters": {
-													"p_file_name": "@activity('Get Fact_Sales_1 meta').output.childItems[0].name"
+													"p_file_name": {
+														"value": "@item().name",
+														"type": "Expression"
+													}
 												}
 											}
 										]
