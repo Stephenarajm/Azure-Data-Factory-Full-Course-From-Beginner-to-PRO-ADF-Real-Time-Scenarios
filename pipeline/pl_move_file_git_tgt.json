@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "file move from git",
+				"name": "file from git",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
