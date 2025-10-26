@@ -54,7 +54,30 @@
 							"name": "If Condition1",
 							"type": "IfCondition",
 							"dependsOn": [],
-							"userProperties": []
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@contains(item().name,'Fact_Sales_1.txt')",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Append variable1",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "If Condition1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "dsadsa",
+								"value": ""
+							}
 						}
 					]
 				}
