@@ -74,59 +74,8 @@
 										},
 										"userProperties": [],
 										"typeProperties": {
-											"source": {
-												"type": "DelimitedTextSource",
-												"storeSettings": {
-													"type": "AzureBlobStorageReadSettings",
-													"recursive": true,
-													"enablePartitionDiscovery": false
-												},
-												"formatSettings": {
-													"type": "DelimitedTextReadSettings"
-												}
-											},
-											"sink": {
-												"type": "DelimitedTextSink",
-												"storeSettings": {
-													"type": "AzureBlobFSWriteSettings"
-												},
-												"formatSettings": {
-													"type": "DelimitedTextWriteSettings",
-													"quoteAllText": true,
-													"fileExtension": ".txt"
-												}
-											},
-											"enableStaging": false,
-											"translator": {
-												"type": "TabularTranslator",
-												"typeConversion": true,
-												"typeConversionSettings": {
-													"allowDataTruncation": true,
-													"treatBooleanAsNumber": false
-												}
-											}
-										},
-										"inputs": [
-											{
-												"referenceName": "ds_acting_as_src",
-												"type": "DatasetReference",
-												"parameters": {
-													"filename": "@activity('Get Fact_Sales_1 meta').output.childItem.name"
-												}
-											}
-										],
-										"outputs": [
-											{
-												"referenceName": "ds_reporting",
-												"type": "DatasetReference",
-												"parameters": {
-													"filename": {
-														"value": "@activity('Get Fact_Sales_1 meta').output.childItem.name",
-														"type": "Expression"
-													}
-												}
-											}
-										]
+											"enableStaging": false
+										}
 									}
 								]
 							}
