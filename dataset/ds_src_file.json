@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "CDC",
+				"folderPath": "csvfiles",
 				"container": "source"
 			},
 			"columnDelimiter": ",",
