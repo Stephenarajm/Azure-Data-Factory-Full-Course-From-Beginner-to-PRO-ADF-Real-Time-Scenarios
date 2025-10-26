@@ -178,6 +178,9 @@
 					"referenceName": "ls_http_git",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
