@@ -5,6 +5,9 @@
 			"referenceName": "ls_Src_blob",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
