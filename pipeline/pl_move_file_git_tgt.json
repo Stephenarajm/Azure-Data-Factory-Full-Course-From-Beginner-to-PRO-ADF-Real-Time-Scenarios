@@ -24,10 +24,9 @@
 							}
 						],
 						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
+							"type": "HttpReadSettings",
 							"maxConcurrentConnections": 2,
-							"fileListPath": "source/csvfiles/List_file_move.txt",
-							"enablePartitionDiscovery": false
+							"requestMethod": "GET"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextReadSettings"
@@ -56,7 +55,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_src_file",
+						"referenceName": "ds_src_git",
 						"type": "DatasetReference"
 					}
 				],
