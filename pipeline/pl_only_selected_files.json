@@ -48,23 +48,7 @@
 						"value": "@activity('Get Fact_Sales_1 meta').output.childItems",
 						"type": "Expression"
 					},
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "Validation1",
-							"type": "Validation",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"dataset": {
-									"referenceName": "ds_src_file",
-									"type": "DatasetReference"
-								},
-								"timeout": "0.12:00:00",
-								"sleep": 10
-							}
-						}
-					]
+					"isSequential": true
 				}
 			}
 		],
