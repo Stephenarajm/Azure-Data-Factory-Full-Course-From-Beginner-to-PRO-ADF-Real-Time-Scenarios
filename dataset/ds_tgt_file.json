@@ -5,6 +5,11 @@
 			"referenceName": "ls_src1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
 		},
@@ -13,7 +18,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "file2.csv",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
 				"folderPath": "csvfiles",
 				"container": "target"
 			},
