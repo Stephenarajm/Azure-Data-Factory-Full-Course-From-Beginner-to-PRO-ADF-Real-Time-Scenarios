@@ -19,7 +19,7 @@
 					"value": "@dataset().p_file_name",
 					"type": "Expression"
 				},
-				"folderPath": "reporting/csvfiles",
+				"folderPath": "reporting",
 				"fileSystem": "target"
 			},
 			"columnDelimiter": ",",
