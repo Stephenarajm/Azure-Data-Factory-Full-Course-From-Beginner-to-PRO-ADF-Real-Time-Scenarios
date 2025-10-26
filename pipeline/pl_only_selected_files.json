@@ -57,7 +57,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@contains(item().itemName,'Fact_Sales_1.txt')",
+									"value": "@contains(item().name,'Fact_Sales_1.txt')",
 									"type": "Expression"
 								}
 							}
