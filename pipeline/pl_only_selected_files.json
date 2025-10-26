@@ -97,14 +97,8 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ds_tgt_file",
-									"type": "DatasetReference",
-									"parameters": {
-										"filenmae": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "ds_acting_as_src",
+									"type": "DatasetReference"
 								}
 							]
 						}
