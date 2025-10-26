@@ -57,7 +57,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@equals(item().childItems,'Fact_Sales_1.txt')",
+									"value": "@equals(item().name,'Fact_Sales_1.txt')",
 									"type": "Expression"
 								}
 							}
