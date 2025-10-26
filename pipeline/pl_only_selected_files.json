@@ -57,7 +57,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"message": {
-									"value": "@item().itemName",
+									"value": "@activity('Get Fact_Sales_1 meta').output.itemName",
 									"type": "Expression"
 								},
 								"errorCode": "101"
