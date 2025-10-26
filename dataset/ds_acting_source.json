@@ -2,7 +2,7 @@
 	"name": "ds_acting_source",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_src1",
+			"referenceName": "ls_Tgt_gen2_blob",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -14,13 +14,13 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
+				"type": "AzureBlobFSLocation",
 				"fileName": {
 					"value": "@dataset().p_file_name",
 					"type": "Expression"
 				},
 				"folderPath": "csvfiles",
-				"container": "target"
+				"fileSystem": "reporting"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
