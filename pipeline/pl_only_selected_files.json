@@ -89,7 +89,7 @@
 										"recursive": true,
 										"wildcardFolderPath": "csvfiles",
 										"wildcardFileName": {
-											"value": "@item().itemName",
+											"value": "@item().name",
 											"type": "Expression"
 										},
 										"enablePartitionDiscovery": false
