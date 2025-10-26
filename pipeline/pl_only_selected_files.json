@@ -57,7 +57,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@contains(activity('Get Fact_Sales_1 meta').output.itemName,'Fact_Sales_1.txt')",
+									"value": "@contains(item().itemName,'Fact_Sales_1.txt')",
 									"type": "Expression"
 								}
 							}
