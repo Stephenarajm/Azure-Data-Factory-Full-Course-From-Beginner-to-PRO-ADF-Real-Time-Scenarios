@@ -51,32 +51,13 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "If Fact_Sales_1 pass",
-							"type": "IfCondition",
+							"name": "Fail1",
+							"type": "Fail",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"expression": {
-									"value": "@contains(item().name,'Fact_Sales_1.txt')",
-									"type": "Expression"
-								}
-							}
-						},
-						{
-							"name": "Fail1",
-							"type": "Fail",
-							"dependsOn": [
-								{
-									"activity": "If Fact_Sales_1 pass",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
 								"message": {
-									"value": "@activity('Get Fact_Sales_1 meta').output.childItems",
+									"value": "@item().itemName",
 									"type": "Expression"
 								},
 								"errorCode": "101"
