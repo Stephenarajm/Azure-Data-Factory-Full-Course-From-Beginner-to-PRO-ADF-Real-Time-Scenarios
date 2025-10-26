@@ -79,11 +79,6 @@
 												"storeSettings": {
 													"type": "AzureBlobStorageReadSettings",
 													"recursive": true,
-													"wildcardFolderPath": "csvfiles",
-													"wildcardFileName": {
-														"value": "@activity('Get Fact_Sales_1 meta').output.childItem.name",
-														"type": "Expression"
-													},
 													"enablePartitionDiscovery": false
 												},
 												"formatSettings": {
@@ -114,7 +109,10 @@
 										"inputs": [
 											{
 												"referenceName": "ds_acting_as_src",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"filename": "@activity('Get Fact_Sales_1 meta').output.childItem.name"
+												}
 											}
 										],
 										"outputs": [
@@ -123,7 +121,7 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"filename": {
-														"value": "@item().name",
+														"value": "@activity('Get Fact_Sales_1 meta').output.childItem.name",
 														"type": "Expression"
 													}
 												}
