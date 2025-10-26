@@ -7,6 +7,9 @@
 		},
 		"annotations": [],
 		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "Stephenarajm/Azure-Data-Factory/refs/heads/main/Raw%20Data/testfile"
+		},
 		"schema": []
 	}
 }
