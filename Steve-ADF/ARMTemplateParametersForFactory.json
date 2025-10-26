@@ -5,6 +5,12 @@
 		"factoryName": {
 			"value": "Steve-ADF"
 		},
+		"ls_Src_blob_connectionString": {
+			"value": ""
+		},
+		"ls_Tgt_gen2_blob_accountKey": {
+			"value": ""
+		},
 		"ls_datalake_connectionString": {
 			"value": ""
 		},
@@ -16,6 +22,9 @@
 		},
 		"RestService1_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/"
+		},
+		"ls_Tgt_gen2_blob_properties_typeProperties_url": {
+			"value": "https://targetacnt.dfs.core.windows.net/"
 		},
 		"ls_http_git_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com"

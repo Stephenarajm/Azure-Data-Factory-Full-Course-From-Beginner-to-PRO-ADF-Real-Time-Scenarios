@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "Steve-ADF"
 		},
+		"ls_Src_blob_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_Src_blob'"
+		},
+		"ls_Tgt_gen2_blob_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_Tgt_gen2_blob'"
+		},
 		"ls_datalake_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_datalake'"
@@ -22,6 +30,10 @@
 		"RestService1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/"
+		},
+		"ls_Tgt_gen2_blob_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://targetacnt.dfs.core.windows.net/"
 		},
 		"ls_http_git_properties_typeProperties_url": {
 			"type": "string",
@@ -58,6 +70,12 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"ls_Src_blob_connectionString": {
+						"value": "[parameters('ls_Src_blob_connectionString')]"
+					},
+					"ls_Tgt_gen2_blob_accountKey": {
+						"value": "[parameters('ls_Tgt_gen2_blob_accountKey')]"
+					},
 					"ls_datalake_connectionString": {
 						"value": "[parameters('ls_datalake_connectionString')]"
 					},
@@ -70,6 +88,9 @@
 					"RestService1_properties_typeProperties_url": {
 						"value": "[parameters('RestService1_properties_typeProperties_url')]"
 					},
+					"ls_Tgt_gen2_blob_properties_typeProperties_url": {
+						"value": "[parameters('ls_Tgt_gen2_blob_properties_typeProperties_url')]"
+					},
 					"ls_http_git_properties_typeProperties_url": {
 						"value": "[parameters('ls_http_git_properties_typeProperties_url')]"
 					},
@@ -79,6 +100,26 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "Steve-ADF_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Steve-ADF_ArmTemplate_0')]"
+			]
 		}
 	]
 }

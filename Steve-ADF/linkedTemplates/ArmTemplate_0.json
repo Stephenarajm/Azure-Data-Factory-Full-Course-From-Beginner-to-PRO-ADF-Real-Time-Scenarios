@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "Steve-ADF"
 		},
+		"ls_Src_blob_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_Src_blob'"
+		},
+		"ls_Tgt_gen2_blob_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_Tgt_gen2_blob'"
+		},
 		"ls_datalake_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_datalake'"
@@ -22,6 +30,10 @@
 		"RestService1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/"
+		},
+		"ls_Tgt_gen2_blob_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://targetacnt.dfs.core.windows.net/"
 		},
 		"ls_http_git_properties_typeProperties_url": {
 			"type": "string",
@@ -47,6 +59,40 @@
 					"url": "[parameters('RestService1_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": true,
 					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_Src_blob')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [
+					"New"
+				],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_Src_blob_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_Tgt_gen2_blob')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [
+					"new"
+				],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_Tgt_gen2_blob_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_Tgt_gen2_blob_accountKey')]"
+					}
 				}
 			},
 			"dependsOn": []
@@ -139,12 +185,92 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ds_src_file')]",
+			"name": "[concat(parameters('factoryName'), '/ds_acting_source')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "ls_src1",
+					"referenceName": "ls_Tgt_gen2_blob",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"p_file_name": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios/Test"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().p_file_name",
+							"type": "Expression"
+						},
+						"folderPath": "csvfiles",
+						"fileSystem": "reporting"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Tgt_gen2_blob')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_gen2_reporting')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_tgt1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"p_file_name": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().p_file_name",
+							"type": "Expression"
+						},
+						"folderPath": "reporting",
+						"fileSystem": "target"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_tgt1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_source_blob')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Src_blob",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
@@ -166,7 +292,111 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_src1')]"
+				"[concat(variables('factoryId'), '/linkedServices/ls_Src_blob')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_source_param_file')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Src_blob",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"p_filename": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().p_filename",
+							"type": "Expression"
+						},
+						"folderPath": "csvfiles",
+						"container": "source"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "InvoiceNo",
+						"type": "String"
+					},
+					{
+						"name": "StockCode",
+						"type": "String"
+					},
+					{
+						"name": "Description",
+						"type": "String"
+					},
+					{
+						"name": "Quantity",
+						"type": "String"
+					},
+					{
+						"name": "InvoiceDate",
+						"type": "String"
+					},
+					{
+						"name": "UnitPrice",
+						"type": "String"
+					},
+					{
+						"name": "CustomerID",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Src_blob')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_src_file')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Src_blob",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "csvfiles",
+						"container": "source"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Src_blob')]"
 			]
 		},
 		{
@@ -200,6 +430,46 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_target_report')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Tgt_gen2_blob",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"p_filename": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios/Test"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().p_filename",
+							"type": "Expression"
+						},
+						"folderPath": "csvfiles",
+						"fileSystem": "reporting"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Tgt_gen2_blob')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_tgt_file')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -207,6 +477,11 @@
 				"linkedServiceName": {
 					"referenceName": "ls_src1",
 					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"filenmae": {
+						"type": "string"
+					}
 				},
 				"folder": {
 					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
@@ -216,6 +491,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().filenmae",
+							"type": "Expression"
+						},
 						"folderPath": "csvfiles",
 						"container": "target"
 					},
@@ -298,7 +577,9 @@
 							{
 								"referenceName": "ds_tgt_file",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filenmae": "aa"
+								}
 							}
 						]
 					}
@@ -385,7 +666,9 @@
 							{
 								"referenceName": "ds_tgt_file",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filenmae": "aa"
+								}
 							}
 						]
 					}
@@ -456,7 +739,9 @@
 							{
 								"referenceName": "ds_tgt_file",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filenmae": "aa"
+								}
 							}
 						],
 						"outputs": [
@@ -472,13 +757,179 @@
 					"elapsedTimeMetric": {}
 				},
 				"folder": {
-					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
+					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios/Test"
 				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_tgt_file')]",
 				"[concat(variables('factoryId'), '/datasets/RestResource1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_only_selected_files')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get Fact_Sales_1 meta",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_blob",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"fieldList": [
+								"childItems"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Get Fact_Sales_1 meta",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get Fact_Sales_1 meta').output.childItems",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "If Condition1",
+									"type": "IfCondition",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"expression": {
+											"value": "@startswith(item().name,'Fact')",
+											"type": "Expression"
+										},
+										"ifTrueActivities": [
+											{
+												"name": "Copy data1",
+												"type": "Copy",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "DelimitedTextSource",
+														"storeSettings": {
+															"type": "AzureBlobStorageReadSettings",
+															"recursive": true,
+															"enablePartitionDiscovery": false
+														},
+														"formatSettings": {
+															"type": "DelimitedTextReadSettings"
+														}
+													},
+													"sink": {
+														"type": "DelimitedTextSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "DelimitedTextWriteSettings",
+															"quoteAllText": true,
+															"fileExtension": ".txt"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "ds_source_param_file",
+														"type": "DatasetReference",
+														"parameters": {
+															"p_filename": {
+																"value": "@item().name",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "ds_target_report",
+														"type": "DatasetReference",
+														"parameters": {
+															"p_filename": {
+																"value": "@item().name",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											}
+										]
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"asa": {
+						"type": "String"
+					},
+					"dsadsa": {
+						"type": "Array"
+					}
+				},
+				"folder": {
+					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_source_blob')]",
+				"[concat(variables('factoryId'), '/datasets/ds_source_param_file')]",
+				"[concat(variables('factoryId'), '/datasets/ds_target_report')]"
 			]
 		}
 	]
