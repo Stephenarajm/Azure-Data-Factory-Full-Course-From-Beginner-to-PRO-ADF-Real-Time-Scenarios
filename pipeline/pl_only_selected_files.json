@@ -59,78 +59,7 @@
 								"expression": {
 									"value": "@contains(item().name,'Fact_Sales_1.txt')",
 									"type": "Expression"
-								},
-								"ifTrueActivities": [
-									{
-										"name": "Copy Fact_Sales_1 to report_copy1",
-										"type": "Copy",
-										"dependsOn": [],
-										"policy": {
-											"timeout": "0.12:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"source": {
-												"type": "DelimitedTextSource",
-												"storeSettings": {
-													"type": "AzureBlobStorageReadSettings",
-													"recursive": true,
-													"wildcardFolderPath": "csvfiles",
-													"wildcardFileName": {
-														"value": "@item().itemName",
-														"type": "Expression"
-													},
-													"enablePartitionDiscovery": false
-												},
-												"formatSettings": {
-													"type": "DelimitedTextReadSettings"
-												}
-											},
-											"sink": {
-												"type": "DelimitedTextSink",
-												"storeSettings": {
-													"type": "AzureBlobFSWriteSettings"
-												},
-												"formatSettings": {
-													"type": "DelimitedTextWriteSettings",
-													"quoteAllText": true,
-													"fileExtension": ".txt"
-												}
-											},
-											"enableStaging": false,
-											"translator": {
-												"type": "TabularTranslator",
-												"typeConversion": true,
-												"typeConversionSettings": {
-													"allowDataTruncation": true,
-													"treatBooleanAsNumber": false
-												}
-											}
-										},
-										"inputs": [
-											{
-												"referenceName": "ds_tgt_file",
-												"type": "DatasetReference"
-											}
-										],
-										"outputs": [
-											{
-												"referenceName": "ds_reporting",
-												"type": "DatasetReference",
-												"parameters": {
-													"filename": {
-														"value": "@item().itemName",
-														"type": "Expression"
-													}
-												}
-											}
-										]
-									}
-								]
+								}
 							}
 						},
 						{
