@@ -27,7 +27,8 @@
 							"type": "AzureBlobStorageReadSettings",
 							"maxConcurrentConnections": 2,
 							"recursive": true,
-							"wildcardFileName": "*",
+							"wildcardFolderPath": "csvfiles/Stephenarajm/Azure-Data-Factory/refs/heads/main/Raw Data",
+							"wildcardFileName": "Fact_Sales_1.txt",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
