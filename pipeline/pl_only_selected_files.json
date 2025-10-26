@@ -120,7 +120,13 @@
 										"outputs": [
 											{
 												"referenceName": "ds_reporting",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"filename": {
+														"value": "@activity('Get Fact_Sales_1 meta').output.childItems[0].name",
+														"type": "Expression"
+													}
+												}
 											}
 										]
 									}
