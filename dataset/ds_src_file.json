@@ -2,7 +2,7 @@
 	"name": "ds_src_file",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_src1",
+			"referenceName": "ls_Src_blob",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
