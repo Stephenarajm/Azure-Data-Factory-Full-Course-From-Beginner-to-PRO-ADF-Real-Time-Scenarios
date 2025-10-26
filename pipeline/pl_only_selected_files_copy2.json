@@ -52,10 +52,7 @@
 						"referenceName": "ds_acting_source",
 						"type": "DatasetReference",
 						"parameters": {
-							"p_file_name": {
-								"value": "@item().name",
-								"type": "Expression"
-							}
+							"p_file_name": "Fact_Sales_1.txt"
 						}
 					}
 				],
@@ -65,7 +62,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"p_file_name": {
-								"value": "@item().name",
+								"value": "Fact_Sales_1.txt",
 								"type": "Expression"
 							}
 						}
