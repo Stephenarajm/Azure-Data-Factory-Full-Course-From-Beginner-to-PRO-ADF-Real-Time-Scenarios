@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_tgt_file",
+						"referenceName": "ds_acting_as_src",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
