@@ -51,7 +51,7 @@
 				"     disjoint: false) ~> split1@(mastercard, visa, Remainingplayers)",
 				"split1@Remainingplayers derive(payment = iif(isNull(payment),'cash',payment)) ~> derivedColumn1",
 				"source1 aggregate(groupBy(customer_id),",
-				"     price = ERROR_FUNCTION('')) ~> aggregate1"
+				"     totalprice = sum(price)) ~> aggregate1"
 			]
 		}
 	}
