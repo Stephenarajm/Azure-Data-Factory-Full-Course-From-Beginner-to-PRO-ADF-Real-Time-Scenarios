@@ -68,13 +68,14 @@
 				"aggregate1 derive(totalprice = toDecimal(toDouble(totalprice))) ~> ModifyColumns1",
 				"aggregate1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     emptyLinesAsHeader: 1,",
+				"     partitionFileNames:['dataflow_file.csv'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 1) ~> sink1"
+				"     saveOrder: 1,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
