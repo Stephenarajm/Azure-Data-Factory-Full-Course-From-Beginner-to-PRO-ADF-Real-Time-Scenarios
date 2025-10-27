@@ -41,8 +41,8 @@
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKey1",
 				"surrogateKey1 split(payment == 'mastercard',",
-				"     ERROR_FUNCTION(''),",
-				"     disjoint: false) ~> split1@(mastercard, visa, )"
+				"     payment == 'visa',",
+				"     disjoint: false) ~> split1@(mastercard, visa, Remainingplayers)"
 			]
 		}
 	}
