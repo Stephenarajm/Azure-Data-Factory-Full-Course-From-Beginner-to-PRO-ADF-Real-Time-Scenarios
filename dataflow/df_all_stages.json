@@ -14,10 +14,6 @@
 			],
 			"sinks": [
 				{
-					"dataset": {
-						"referenceName": "ds_gen2_reporting",
-						"type": "DatasetReference"
-					},
 					"name": "sink1"
 				}
 			],
@@ -67,12 +63,9 @@
 				"aggregate1 derive(totalprice = toDecimal(toDouble(totalprice))) ~> ModifyColumns1",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     emptyLinesAsHeader: 1,",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 1) ~> sink1"
 			]
 		}
 	}
