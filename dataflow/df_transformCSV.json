@@ -54,8 +54,9 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> selectcloumns",
 				"selectcloumns filter(customer_id != 12) ~> filtercustidnot12",
-				"filtercustidnot12 split(ERROR_FUNCTION(''),",
-				"     disjoint: false) ~> split1@(, )"
+				"filtercustidnot12 split(payment == 'visa',",
+				"     ERROR_FUNCTION(''),",
+				"     disjoint: false) ~> split1@(Visa, , )"
 			]
 		}
 	}
