@@ -46,7 +46,7 @@
 				"surrogateKey1 split(payment == 'mastercard',",
 				"     payment == 'visa',",
 				"     disjoint: false) ~> split1@(mastercard, visa, Remainingplayers)",
-				"split1@mastercard derive() ~> derivedColumn1"
+				"split1@Remainingplayers derive(payment = ERROR_FUNCTION('')) ~> derivedColumn1"
 			]
 		}
 	}
