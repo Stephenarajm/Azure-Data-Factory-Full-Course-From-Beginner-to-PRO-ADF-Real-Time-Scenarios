@@ -139,7 +139,7 @@
 				}
 			},
 			{
-				"name": "Data flow1",
+				"name": "Data XFM",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
