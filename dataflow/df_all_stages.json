@@ -16,18 +16,6 @@
 			"transformations": [
 				{
 					"name": "selectcloumns"
-				},
-				{
-					"name": "filtercustidnot12"
-				},
-				{
-					"name": "split1"
-				},
-				{
-					"name": "aggregate1"
-				},
-				{
-					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -58,14 +46,7 @@
 				"          product_id",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> selectcloumns",
-				"selectcloumns filter(customer_id != 12) ~> filtercustidnot12",
-				"filtercustidnot12 split(payment == 'visa',",
-				"     payment =='mastercard',",
-				"     disjoint: false) ~> split1@(Visa, Mastercard, Remianingplayers)",
-				"split1@Mastercard aggregate(groupBy(product_id),",
-				"     cnt = sum(price)) ~> aggregate1",
-				"split1@Remianingplayers derive(payment = iif(isNull(payment),'Cash',payment)) ~> derivedColumn1"
+				"     skipDuplicateMapOutputs: true) ~> selectcloumns"
 			]
 		}
 	}
