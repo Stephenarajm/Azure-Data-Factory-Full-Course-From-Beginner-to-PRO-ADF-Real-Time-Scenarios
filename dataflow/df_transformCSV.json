@@ -55,8 +55,8 @@
 				"     skipDuplicateMapOutputs: true) ~> selectcloumns",
 				"selectcloumns filter(customer_id != 12) ~> filtercustidnot12",
 				"filtercustidnot12 split(payment == 'visa',",
-				"     ERROR_FUNCTION(''),",
-				"     disjoint: false) ~> split1@(Visa, , )"
+				"     payment =='mastercard',",
+				"     disjoint: false) ~> split1@(Visa, Mastercard, Remianingplayers)"
 			]
 		}
 	}
