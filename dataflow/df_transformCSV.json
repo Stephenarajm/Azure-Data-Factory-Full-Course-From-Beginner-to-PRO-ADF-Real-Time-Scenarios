@@ -16,6 +16,9 @@
 			"transformations": [
 				{
 					"name": "selectcloumns"
+				},
+				{
+					"name": "filtercustidnot12"
 				}
 			],
 			"scriptLines": [
@@ -40,17 +43,14 @@
 				"          product_id,",
 				"          customer_id,",
 				"          payment,",
-				"          credit_card,",
-				"          loyalty_card,",
-				"          cost,",
-				"          quantity,",
 				"          price",
 				"     ),",
 				"     partitionBy('hash', 2,",
 				"          product_id",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> selectcloumns"
+				"     skipDuplicateMapOutputs: true) ~> selectcloumns",
+				"selectcloumns filter(ERROR_FUNCTION('')) ~> filtercustidnot12"
 			]
 		}
 	}
