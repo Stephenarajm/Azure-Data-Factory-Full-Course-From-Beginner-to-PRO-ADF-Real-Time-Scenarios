@@ -40,8 +40,9 @@
 				"source1 keyGenerate(output(Keycolumn as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKey1",
-				"surrogateKey1 split(ERROR_FUNCTION(''),",
-				"     disjoint: false) ~> split1@(mastercard, visa)"
+				"surrogateKey1 split(payment == 'mastercard',",
+				"     ERROR_FUNCTION(''),",
+				"     disjoint: false) ~> split1@(mastercard, visa, )"
 			]
 		}
 	}
