@@ -1,6 +1,9 @@
 {
 	"name": "df_transformCSV",
 	"properties": {
+		"folder": {
+			"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
