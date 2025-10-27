@@ -22,6 +22,9 @@
 				},
 				{
 					"name": "split1"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -56,7 +59,8 @@
 				"selectcloumns filter(customer_id != 12) ~> filtercustidnot12",
 				"filtercustidnot12 split(payment == 'visa',",
 				"     payment =='mastercard',",
-				"     disjoint: false) ~> split1@(Visa, Mastercard, Remianingplayers)"
+				"     disjoint: false) ~> split1@(Visa, Mastercard, Remianingplayers)",
+				"split1@Mastercard aggregate() ~> aggregate1"
 			]
 		}
 	}
