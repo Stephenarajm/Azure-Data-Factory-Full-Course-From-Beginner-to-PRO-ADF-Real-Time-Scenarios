@@ -50,7 +50,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> selectcloumns",
-				"selectcloumns filter(ERROR_FUNCTION('')) ~> filtercustidnot12"
+				"selectcloumns filter(ERROR_FUNCTION('customer_id<>__SINGLE_QUOTE__12__SINGLE_QUOTE__')) ~> filtercustidnot12"
 			]
 		}
 	}
