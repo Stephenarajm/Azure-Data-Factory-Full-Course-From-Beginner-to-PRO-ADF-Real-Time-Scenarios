@@ -19,6 +19,9 @@
 				},
 				{
 					"name": "split1"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -42,7 +45,8 @@
 				"     stepValue: 1L) ~> surrogateKey1",
 				"surrogateKey1 split(payment == 'mastercard',",
 				"     payment == 'visa',",
-				"     disjoint: false) ~> split1@(mastercard, visa, Remainingplayers)"
+				"     disjoint: false) ~> split1@(mastercard, visa, Remainingplayers)",
+				"split1@mastercard derive() ~> derivedColumn1"
 			]
 		}
 	}
