@@ -34,7 +34,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 keyGenerate(output({undefined} as long),",
+				"source1 keyGenerate(output(Keycolumn as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKey1"
 			]
