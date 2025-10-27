@@ -16,6 +16,9 @@
 			"transformations": [
 				{
 					"name": "surrogateKey1"
+				},
+				{
+					"name": "split1"
 				}
 			],
 			"scriptLines": [
@@ -36,7 +39,9 @@
 				"     ignoreNoFilesFound: false) ~> source1",
 				"source1 keyGenerate(output(Keycolumn as long),",
 				"     startAt: 1L,",
-				"     stepValue: 1L) ~> surrogateKey1"
+				"     stepValue: 1L) ~> surrogateKey1",
+				"surrogateKey1 split(ERROR_FUNCTION(''),",
+				"     disjoint: false) ~> split1@(, )"
 			]
 		}
 	}
