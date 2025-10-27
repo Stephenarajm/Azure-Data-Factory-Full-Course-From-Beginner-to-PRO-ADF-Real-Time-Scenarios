@@ -22,6 +22,9 @@
 				},
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "alterRow1"
 				}
 			],
 			"scriptLines": [
@@ -46,7 +49,8 @@
 				"surrogateKey1 split(payment == 'mastercard',",
 				"     payment == 'visa',",
 				"     disjoint: false) ~> split1@(mastercard, visa, Remainingplayers)",
-				"split1@Remainingplayers derive(payment = iif(isNull(payment),'cash',payment)) ~> derivedColumn1"
+				"split1@Remainingplayers derive(payment = iif(isNull(payment),'cash',payment)) ~> derivedColumn1",
+				"derivedColumn1 alterRow() ~> alterRow1"
 			]
 		}
 	}
