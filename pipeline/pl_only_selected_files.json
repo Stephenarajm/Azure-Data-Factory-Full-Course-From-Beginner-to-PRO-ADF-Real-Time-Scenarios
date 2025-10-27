@@ -159,7 +159,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "df_trans",
+						"referenceName": "df_transformCSV",
 						"type": "DataFlowReference"
 					},
 					"compute": {
