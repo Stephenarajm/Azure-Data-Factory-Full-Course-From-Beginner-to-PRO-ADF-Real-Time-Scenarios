@@ -46,9 +46,8 @@
 				"          quantity,",
 				"          price",
 				"     ),",
-				"     partitionBy('key',",
-				"          0,",
-				"          ERROR_FUNCTION('')",
+				"     partitionBy('hash', 2,",
+				"          product_id",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1"
