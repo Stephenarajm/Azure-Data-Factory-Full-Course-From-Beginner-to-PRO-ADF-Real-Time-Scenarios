@@ -24,7 +24,7 @@
 					"name": "derivedColumn1"
 				},
 				{
-					"name": "alterRow1"
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -50,7 +50,7 @@
 				"     payment == 'visa',",
 				"     disjoint: false) ~> split1@(mastercard, visa, Remainingplayers)",
 				"split1@Remainingplayers derive(payment = iif(isNull(payment),'cash',payment)) ~> derivedColumn1",
-				"derivedColumn1 alterRow(deleteIf(payment == 'cash')) ~> alterRow1"
+				"source1 aggregate() ~> aggregate1"
 			]
 		}
 	}
