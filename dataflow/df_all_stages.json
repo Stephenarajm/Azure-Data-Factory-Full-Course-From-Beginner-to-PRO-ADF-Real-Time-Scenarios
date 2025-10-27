@@ -14,6 +14,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "ds_dataflow",
+						"type": "DatasetReference"
+					},
 					"name": "sink1"
 				}
 			],
@@ -61,8 +65,12 @@
 				"source1 aggregate(groupBy(customer_id),",
 				"     totalprice = sum(price)) ~> aggregate1",
 				"aggregate1 derive(totalprice = toDecimal(toDouble(totalprice))) ~> ModifyColumns1",
-				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"aggregate1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     emptyLinesAsHeader: 1,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     saveOrder: 1) ~> sink1"
