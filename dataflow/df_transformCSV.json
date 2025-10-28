@@ -63,7 +63,8 @@
 				"filtercustidnot12 split(payment == 'visa',",
 				"     payment =='mastercard',",
 				"     disjoint: false) ~> split1@(Visa, Mastercard, Remianingplayers)",
-				"split1@Visa aggregate() ~> aggregate1"
+				"split1@Visa aggregate(groupBy(customer_id),",
+				"     product_id = max()) ~> aggregate1"
 			]
 		}
 	}
