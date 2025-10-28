@@ -15,15 +15,7 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [
-				{
-					"dataset": {
-						"referenceName": "ds_acting_source",
-						"type": "DatasetReference"
-					},
-					"name": "sink1"
-				}
-			],
+			"sinks": [],
 			"transformations": [
 				{
 					"name": "selectcloumns"
@@ -33,12 +25,6 @@
 				},
 				{
 					"name": "split1"
-				},
-				{
-					"name": "aggregate1"
-				},
-				{
-					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -73,17 +59,7 @@
 				"selectcloumns filter(customer_id != 12) ~> filtercustidnot12",
 				"filtercustidnot12 split(payment == 'visa',",
 				"     payment =='mastercard',",
-				"     disjoint: false) ~> split1@(Visa, Mastercard, Remianingplayers)",
-				"split1@Mastercard aggregate(groupBy(product_id),",
-				"     cnt = sum(price)) ~> aggregate1",
-				"split1@Remianingplayers derive(payment = iif(isNull(payment),'Cash',payment)) ~> derivedColumn1",
-				"derivedColumn1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     disjoint: false) ~> split1@(Visa, Mastercard, Remianingplayers)"
 			]
 		}
 	}
