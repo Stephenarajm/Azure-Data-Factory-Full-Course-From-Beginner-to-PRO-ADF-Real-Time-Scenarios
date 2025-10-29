@@ -15,7 +15,11 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sink"
+				}
+			],
 			"transformations": [
 				{
 					"name": "selectcloumns"
@@ -69,7 +73,11 @@
 				"split1@Visa aggregate(groupBy(customer_id),",
 				"     product_id = max(product_id),",
 				"          price = sum(price)) ~> aggregate1",
-				"split1@Remianingplayers derive(payment = iif(isNull(payment),'Cash',payment)) ~> derivedColumn1"
+				"split1@Remianingplayers derive(payment = iif(isNull(payment),'Cash',payment)) ~> derivedColumn1",
+				"aggregate1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink"
 			]
 		}
 	}
