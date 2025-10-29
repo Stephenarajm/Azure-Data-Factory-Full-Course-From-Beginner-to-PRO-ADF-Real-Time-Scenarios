@@ -420,7 +420,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Get Fact_Sales_1 meta').output.childItem.name",
+								"value": "@activity('Get Fact_Sales_1 meta').output.childItems",
 								"type": "Expression"
 							},
 							"isSequential": true,
