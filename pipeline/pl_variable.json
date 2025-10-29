@@ -47,9 +47,21 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "filename",
+					"value": {
+						"value": "@activity('Get Fact_Sales_1 meta').output.childItem.name",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"filename": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
 		},
