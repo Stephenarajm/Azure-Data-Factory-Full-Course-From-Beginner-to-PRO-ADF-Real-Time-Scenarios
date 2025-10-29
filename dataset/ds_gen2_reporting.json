@@ -2,7 +2,7 @@
 	"name": "ds_gen2_reporting",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_tgt1",
+			"referenceName": "ls_Tgt_gen2_blob",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
