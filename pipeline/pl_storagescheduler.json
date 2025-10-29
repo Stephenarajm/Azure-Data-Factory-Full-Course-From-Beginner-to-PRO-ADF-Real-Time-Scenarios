@@ -38,7 +38,7 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -64,14 +64,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_gen2_reporting",
-						"type": "DatasetReference",
-						"parameters": {
-							"p_file_name": {
-								"value": "@concat('Fact_Sales_1_',utcNow(),'.csv')",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "ds_source_blob",
+						"type": "DatasetReference"
 					}
 				]
 			},
