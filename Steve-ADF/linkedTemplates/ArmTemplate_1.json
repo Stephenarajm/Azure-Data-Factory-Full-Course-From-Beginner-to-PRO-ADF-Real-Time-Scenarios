@@ -6,16 +6,50 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "Steve-ADF"
-		},
-		"tr_stror_manager_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/56d52e0f-239f-4ef6-a999-8297559b8172/resourceGroups/Steve-rg/providers/Microsoft.Storage/storageAccounts/sourceacnt"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_target_report')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Tgt_gen2_blob",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"p_filename": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios/Test"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().p_filename",
+							"type": "Expression"
+						},
+						"folderPath": "csvfiles",
+						"fileSystem": "reporting"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ds_tgt_file')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -1325,7 +1359,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/df_transformCSV')]"
+				"[concat(variables('factoryId'), '/dataflows/df_transformCSV')]",
+				"[concat(variables('factoryId'), '/datasets/ds_target_report')]"
 			]
 		},
 		{
@@ -1333,6 +1368,7 @@
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"description": "tr_stror_manager - storage trigger",
 				"activities": [
 					{
 						"name": "pl_storagescheduler",
@@ -1387,36 +1423,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler')]",
 				"[concat(variables('factoryId'), '/pipelines/pl_only_selected_files')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/tr_stror_manager')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PL_Master",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/source/blobs/manageruploads/Fact",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('tr_stror_manager_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_Master')]"
 			]
 		}
 	]
