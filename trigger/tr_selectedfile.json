@@ -1,5 +1,5 @@
 {
-	"name": "trigger1",
+	"name": "tr_selectedfile",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
@@ -16,8 +16,8 @@
 			"recurrence": {
 				"frequency": "Minute",
 				"interval": 1,
-				"startTime": "2025-10-29T11:41:00",
-				"endTime": "2025-10-30T11:45:00",
+				"startTime": "2025-10-29T11:43:00",
+				"endTime": "2025-10-29T11:45:00",
 				"timeZone": "India Standard Time"
 			}
 		}
