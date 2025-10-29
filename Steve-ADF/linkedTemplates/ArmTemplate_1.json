@@ -1407,7 +1407,7 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact",
+					"blobPathBeginsWith": "/source/blobs/manageruploads/Fact",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('tr_stror_manager_properties_typeProperties_scope')]",
 					"events": [
