@@ -43,6 +43,10 @@
 			"type": "string",
 			"defaultValue": "https://velancovidreportingsa.dfs.core.windows.net/"
 		},
+		"tr_storageevent_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/56d52e0f-239f-4ef6-a999-8297559b8172/resourceGroups/Steve-rg/providers/Microsoft.Storage/storageAccounts/sourceacnt"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -114,6 +118,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"tr_storageevent_properties_typeProperties_scope": {
+						"value": "[parameters('tr_storageevent_properties_typeProperties_scope')]"
 					}
 				}
 			},
