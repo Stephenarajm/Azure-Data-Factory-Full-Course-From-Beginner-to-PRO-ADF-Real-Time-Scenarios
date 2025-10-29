@@ -103,7 +103,8 @@
 						"linkedServiceName": {
 							"referenceName": "ls_Src_blob",
 							"type": "LinkedServiceReference"
-						}
+						},
+						"path": "source/Delete_logs"
 					},
 					"enableLogging": true,
 					"storeSettings": {
