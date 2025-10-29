@@ -1,6 +1,7 @@
 {
 	"name": "PL_Master",
 	"properties": {
+		"description": "tr_stror_manager - storage trigger",
 		"activities": [
 			{
 				"name": "pl_storagescheduler",
