@@ -104,7 +104,7 @@
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
 						"recursive": true,
-						"wildcardFileName": "*.csv",
+						"wildcardFileName": "Fact*",
 						"enablePartitionDiscovery": false
 					}
 				}
