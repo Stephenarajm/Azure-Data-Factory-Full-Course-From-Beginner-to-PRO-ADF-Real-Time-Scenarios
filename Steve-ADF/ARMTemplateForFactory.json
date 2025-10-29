@@ -2019,6 +2019,13 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "pl_storagescheduler",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "BlobEventsTrigger",
@@ -2032,7 +2039,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_Master')]"
+				"[concat(variables('factoryId'), '/pipelines/PL_Master')]",
+				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler')]"
 			]
 		}
 	]
