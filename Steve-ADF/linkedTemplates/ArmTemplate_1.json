@@ -521,7 +521,25 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"enableLogging": true
+							"dataset": {
+								"referenceName": "ds_src_file",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"logStorageSettings": {
+								"linkedServiceName": {
+									"referenceName": "ls_Src_blob",
+									"type": "LinkedServiceReference"
+								},
+								"path": "source/Delete_logs"
+							},
+							"enableLogging": true,
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"wildcardFileName": "*.csv",
+								"enablePartitionDiscovery": false
+							}
 						}
 					}
 				],
