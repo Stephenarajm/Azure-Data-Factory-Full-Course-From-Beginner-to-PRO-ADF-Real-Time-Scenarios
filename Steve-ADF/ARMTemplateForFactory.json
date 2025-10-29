@@ -1353,37 +1353,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/tr_selectedfile')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pl_only_selected_files",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 3,
-						"startTime": "2025-10-29T11:45:00",
-						"endTime": "2025-10-29T12:00:00",
-						"timeZone": "India Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pl_only_selected_files')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/df_all_stages')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -1577,6 +1546,37 @@
 				"[concat(variables('factoryId'), '/datasets/ds_dataflow_source')]",
 				"[concat(variables('factoryId'), '/datasets/ds_dataflow_ansh')]",
 				"[concat(variables('factoryId'), '/linkedServices/ls_Tgt_gen2_blob')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tr_selectedfile')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pl_only_selected_files",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 3,
+						"startTime": "2025-10-29T11:50:00",
+						"endTime": "2025-10-29T12:00:00",
+						"timeZone": "India Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pl_only_selected_files')]"
 			]
 		}
 	]
