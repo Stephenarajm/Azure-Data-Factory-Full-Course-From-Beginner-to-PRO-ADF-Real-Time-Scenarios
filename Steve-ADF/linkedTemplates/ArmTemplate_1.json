@@ -1212,7 +1212,7 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_Sales_1.csv",
+					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_*",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('tr_stror_manager_properties_typeProperties_scope')]",
 					"events": [

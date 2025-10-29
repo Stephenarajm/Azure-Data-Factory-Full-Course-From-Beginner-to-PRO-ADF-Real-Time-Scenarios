@@ -1833,36 +1833,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/tr_stror_manager')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pl_storagescheduler_v1",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_Sales_1.csv",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('tr_stror_manager_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler_v1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/pl_storagescheduler_v1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1954,6 +1924,36 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_src_file')]",
 				"[concat(variables('factoryId'), '/datasets/ds_gen2_reporting')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tr_stror_manager')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pl_storagescheduler_v1",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_*",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('tr_stror_manager_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler_v1')]"
 			]
 		}
 	]
