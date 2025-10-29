@@ -85,12 +85,11 @@
 				"alterRows sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['outfromdataflow.csv'],",
-				"     umask: 0022,",
+				"     umask: 0777,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     header: ('processed by dataflow'),",
 				"     partitionBy('hash', 1)) ~> sink"
 			]
 		}
