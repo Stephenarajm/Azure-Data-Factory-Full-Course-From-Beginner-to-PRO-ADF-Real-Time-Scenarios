@@ -3,9 +3,32 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "pl_only_selected_files",
+				"name": "pl_storagescheduler",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_storagescheduler",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "pl_only_selected_files",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "pl_storagescheduler",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"secureInput": false
 				},
