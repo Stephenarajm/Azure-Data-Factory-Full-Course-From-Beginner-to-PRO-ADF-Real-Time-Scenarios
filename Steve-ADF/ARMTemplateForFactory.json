@@ -1358,7 +1358,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -1372,40 +1372,9 @@
 				"typeProperties": {
 					"recurrence": {
 						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2025-10-29T11:43:00",
+						"interval": 3,
+						"startTime": "2025-10-29T11:45:00",
 						"endTime": "2025-10-29T11:45:00",
-						"timeZone": "India Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pl_only_selected_files')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/tr_selectedfiles')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pl_only_selected_files",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2025-10-29T11:38:00",
-						"endTime": "2025-10-30T11:40:00",
 						"timeZone": "India Standard Time"
 					}
 				}
