@@ -948,7 +948,7 @@
 							"storeSettings": {
 								"type": "AzureBlobStorageReadSettings",
 								"recursive": true,
-								"wildcardFileName": "*.csv",
+								"wildcardFileName": "Fact*",
 								"enablePartitionDiscovery": false
 							}
 						}
@@ -2015,7 +2015,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "pl_storagescheduler",
+							"referenceName": "PL_Master",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -2032,7 +2032,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler')]"
+				"[concat(variables('factoryId'), '/pipelines/PL_Master')]"
 			]
 		}
 	]
