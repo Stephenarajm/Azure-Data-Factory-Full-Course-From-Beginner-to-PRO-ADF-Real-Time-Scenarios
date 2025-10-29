@@ -39,6 +39,9 @@
 				},
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "alterRow1"
 				}
 			],
 			"scriptLines": [
@@ -78,7 +81,8 @@
 				"     product_id = max(product_id),",
 				"          price = sum(price)) ~> aggregate1",
 				"split1@Remianingplayers derive(payment = iif(isNull(payment),'Cash',payment)) ~> derivedColumn1",
-				"aggregate1 sink(allowSchemaDrift: true,",
+				"aggregate1 alterRow() ~> alterRow1",
+				"alterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     umask: 0022,",
 				"     preCommands: [],",
