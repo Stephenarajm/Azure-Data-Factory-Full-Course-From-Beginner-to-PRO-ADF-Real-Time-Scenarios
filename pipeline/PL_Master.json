@@ -1,0 +1,27 @@
+{
+	"name": "PL_Master",
+	"properties": {
+		"activities": [
+			{
+				"name": "pl_only_selected_files",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_only_selected_files",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
+		},
+		"annotations": []
+	}
+}
