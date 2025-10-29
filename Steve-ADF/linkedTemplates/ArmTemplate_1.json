@@ -1329,6 +1329,36 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/tr_stror_manager')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pl_storagescheduler",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/source/blobs/manageruploads/Fact",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('tr_stror_manager_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PL_Master')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1387,44 +1417,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler')]",
 				"[concat(variables('factoryId'), '/pipelines/pl_only_selected_files')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/tr_stror_manager')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PL_Master",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "pl_storagescheduler",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/source/blobs/manageruploads/Fact",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('tr_stror_manager_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_Master')]",
-				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler')]"
 			]
 		}
 	]
