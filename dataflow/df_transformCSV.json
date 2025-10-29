@@ -28,6 +28,9 @@
 				},
 				{
 					"name": "aggregate1"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -65,7 +68,8 @@
 				"     disjoint: false) ~> split1@(Visa, Mastercard, Remianingplayers)",
 				"split1@Visa aggregate(groupBy(customer_id),",
 				"     product_id = max(product_id),",
-				"          price = sum(price)) ~> aggregate1"
+				"          price = sum(price)) ~> aggregate1",
+				"split1@Remianingplayers derive(payment = ERROR_FUNCTION('')) ~> derivedColumn1"
 			]
 		}
 	}
