@@ -85,7 +85,7 @@
 				"     product_id = max(product_id),",
 				"          price = sum(price)) ~> aggregate1",
 				"split1@Remianingplayers derive(payment = iif(isNull(payment),'Cash',payment)) ~> derivedColumn1",
-				"aggregate1 alterRow(insertIf(price < 10)) ~> alterRows",
+				"aggregate1 alterRow(upsertIf(price > 100)) ~> alterRows",
 				"alterRows sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['outfromdataflow.csv'],",
