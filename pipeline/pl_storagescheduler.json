@@ -38,7 +38,7 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
+							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -64,10 +64,10 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_tgt_file",
+						"referenceName": "ds_gen2_reporting",
 						"type": "DatasetReference",
 						"parameters": {
-							"filenmae": "aa"
+							"p_file_name": "@concat('Fact_Sales_1',utcNow(),'.csv')"
 						}
 					}
 				]
