@@ -66,7 +66,7 @@
 				"source1 aggregate(groupBy(customer_id),",
 				"     totalprice = sum(price)) ~> aggregate1",
 				"aggregate1 derive(totalprice = toDecimal(toDouble(totalprice))) ~> ModifyColumns1",
-				"source1 sink(allowSchemaDrift: true,",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['dataflow_file.csv'],",
 				"     umask: 0022,",
