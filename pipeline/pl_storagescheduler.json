@@ -27,7 +27,7 @@
 							"type": "AzureBlobStorageReadSettings",
 							"maxConcurrentConnections": 0,
 							"recursive": true,
-							"wildcardFolderPath": "csvfiles",
+							"wildcardFolderPath": "manageruploads",
 							"wildcardFileName": "*.csv",
 							"enablePartitionDiscovery": false
 						},
