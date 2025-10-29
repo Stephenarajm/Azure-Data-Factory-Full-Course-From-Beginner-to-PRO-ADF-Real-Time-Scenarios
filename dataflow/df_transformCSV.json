@@ -21,7 +21,11 @@
 						"referenceName": "ds_dataflow_ansh",
 						"type": "DatasetReference"
 					},
-					"name": "sink"
+					"name": "sink",
+					"rejectedDataLinkedService": {
+						"referenceName": "ls_Tgt_gen2_blob",
+						"type": "LinkedServiceReference"
+					}
 				}
 			],
 			"transformations": [
@@ -85,7 +89,7 @@
 				"alterRows sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['outfromdataflow.csv'],",
-				"     umask: 0777,",
+				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
