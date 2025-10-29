@@ -868,7 +868,7 @@
 									"type": "AzureBlobStorageReadSettings",
 									"maxConcurrentConnections": 0,
 									"recursive": true,
-									"wildcardFolderPath": "csvfiles",
+									"wildcardFolderPath": "manageruploads",
 									"wildcardFileName": "*.csv",
 									"enablePartitionDiscovery": false
 								},
@@ -933,7 +933,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "ds_src_file",
+								"referenceName": "ds_deletesrc",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -965,6 +965,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_src_file')]",
 				"[concat(variables('factoryId'), '/datasets/ds_source_blob')]",
+				"[concat(variables('factoryId'), '/datasets/ds_deletesrc')]",
 				"[concat(variables('factoryId'), '/linkedServices/ls_Src_blob')]"
 			]
 		},
@@ -2009,6 +2010,29 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler')]",
 				"[concat(variables('factoryId'), '/pipelines/pl_only_selected_files')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_deletesrc')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Src_blob",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "manageruploads",
+						"container": "source"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Src_blob')]"
 			]
 		}
 	]
