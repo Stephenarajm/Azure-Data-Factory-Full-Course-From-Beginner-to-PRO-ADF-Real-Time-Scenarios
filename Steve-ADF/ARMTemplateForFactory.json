@@ -1944,7 +1944,7 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_*",
+					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('tr_stror_manager_properties_typeProperties_scope')]",
 					"events": [
