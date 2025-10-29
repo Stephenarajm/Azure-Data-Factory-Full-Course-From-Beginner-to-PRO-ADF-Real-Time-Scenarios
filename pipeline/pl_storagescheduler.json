@@ -90,7 +90,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_src_file",
+						"referenceName": "ds_deletesrc",
 						"type": "DatasetReference"
 					},
 					"logStorageSettings": {
