@@ -13,7 +13,7 @@
 		],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
-			"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_Sales_1.csv",
+			"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_*",
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/56d52e0f-239f-4ef6-a999-8297559b8172/resourceGroups/Steve-rg/providers/Microsoft.Storage/storageAccounts/sourceacnt",
 			"events": [
