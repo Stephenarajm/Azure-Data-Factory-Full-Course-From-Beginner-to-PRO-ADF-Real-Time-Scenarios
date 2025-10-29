@@ -883,10 +883,36 @@
 								"referenceName": "ds_gen2_reporting",
 								"type": "DatasetReference",
 								"parameters": {
-									"p_file_name": "@concat('Fact_Sales_1',utcNow(),'.csv')"
+									"p_file_name": {
+										"value": "@concat('Fact_Sales_1_',utcNow(),'.csv')",
+										"type": "Expression"
+									}
 								}
 							}
 						]
+					},
+					{
+						"name": "Delete1",
+						"type": "Delete",
+						"dependsOn": [
+							{
+								"activity": "file move",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"enableLogging": true
+						}
 					}
 				],
 				"policy": {
