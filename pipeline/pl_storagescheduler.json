@@ -67,7 +67,10 @@
 						"referenceName": "ds_gen2_reporting",
 						"type": "DatasetReference",
 						"parameters": {
-							"p_file_name": "@concat('Fact_Sales_1',utcNow(),'.csv')"
+							"p_file_name": {
+								"value": "@concat('Fact_Sales_1_',utcNow(),'.csv')",
+								"type": "Expression"
+							}
 						}
 					}
 				]
