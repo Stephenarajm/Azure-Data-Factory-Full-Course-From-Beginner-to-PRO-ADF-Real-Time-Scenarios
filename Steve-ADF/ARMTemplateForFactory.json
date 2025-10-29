@@ -371,7 +371,14 @@
 					{
 						"name": "Get Fact_Sales_1 meta",
 						"type": "GetMetadata",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Validation1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -540,6 +547,21 @@
 								"computeType": "General"
 							},
 							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "Validation1",
+						"type": "Validation",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_blob",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"timeout": "0.12:00:00",
+							"sleep": 10
 						}
 					}
 				],
@@ -857,7 +879,7 @@
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
+									"type": "AzureBlobStorageWriteSettings"
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
@@ -884,14 +906,9 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "ds_gen2_reporting",
+								"referenceName": "ds_source_blob",
 								"type": "DatasetReference",
-								"parameters": {
-									"p_file_name": {
-										"value": "@concat('Fact_Sales_1_',utcNow(),'.csv')",
-										"type": "Expression"
-									}
-								}
+								"parameters": {}
 							}
 						]
 					},
@@ -947,7 +964,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_src_file')]",
-				"[concat(variables('factoryId'), '/datasets/ds_gen2_reporting')]",
+				"[concat(variables('factoryId'), '/datasets/ds_source_blob')]",
 				"[concat(variables('factoryId'), '/linkedServices/ls_Src_blob')]"
 			]
 		},
@@ -1582,15 +1599,7 @@
 			"properties": {
 				"annotations": [],
 				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pl_only_selected_files",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
+				"pipelines": [],
 				"type": "ScheduleTrigger",
 				"typeProperties": {
 					"recurrence": {
@@ -1602,9 +1611,7 @@
 					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pl_only_selected_files')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/tr_storageevent')]",
@@ -1613,15 +1620,7 @@
 			"properties": {
 				"annotations": [],
 				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pl_storagescheduler",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
+				"pipelines": [],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/source/blobs/csvfiles",
@@ -1632,9 +1631,7 @@
 					]
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/df_all_stages')]",
@@ -1904,10 +1901,7 @@
 								"referenceName": "ds_gen2_reporting",
 								"type": "DatasetReference",
 								"parameters": {
-									"p_file_name": {
-										"value": "@concat('Fact_Sales_1_',utcNow(),'.csv')",
-										"type": "Expression"
-									}
+									"p_file_name": "@concat('Fact_Sales_1_',utcNow(),'.csv')"
 								}
 							}
 						]
@@ -1932,11 +1926,11 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "pl_storagescheduler_v1",
+							"referenceName": "PL_Master",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -1953,7 +1947,68 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler_v1')]"
+				"[concat(variables('factoryId'), '/pipelines/PL_Master')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_Master')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "pl_storagescheduler",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pl_storagescheduler",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "pl_only_selected_files",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "pl_storagescheduler",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pl_only_selected_files",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pl_storagescheduler')]",
+				"[concat(variables('factoryId'), '/pipelines/pl_only_selected_files')]"
 			]
 		}
 	]

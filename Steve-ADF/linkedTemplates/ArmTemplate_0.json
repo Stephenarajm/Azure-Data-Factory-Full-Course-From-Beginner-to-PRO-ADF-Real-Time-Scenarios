@@ -42,6 +42,10 @@
 		"ls_tgt1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://velancovidreportingsa.dfs.core.windows.net/"
+		},
+		"tr_storageevent_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/56d52e0f-239f-4ef6-a999-8297559b8172/resourceGroups/Steve-rg/providers/Microsoft.Storage/storageAccounts/sourceacnt"
 		}
 	},
 	"variables": {
@@ -157,6 +161,47 @@
 						"type": "SecureString",
 						"value": "[parameters('ls_tgt1_accountKey')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tr_selectedfile')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 3,
+						"startTime": "2025-10-29T11:50:00",
+						"endTime": "2025-10-29T12:00:00",
+						"timeZone": "India Standard Time"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tr_storageevent')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/source/blobs/csvfiles",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('tr_storageevent_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
 				}
 			},
 			"dependsOn": []
@@ -551,134 +596,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_Tgt_gen2_blob')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_tgt_file')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_src1",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"filenmae": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().filenmae",
-							"type": "Expression"
-						},
-						"folderPath": "csvfiles",
-						"container": "target"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_src1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pl_move_file_git_tgt')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "file from git",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"additionalColumns": [
-									{
-										"name": "Owner",
-										"value": "Steve"
-									}
-								],
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"maxConcurrentConnections": 2,
-									"requestMethod": "GET"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "ds_src_git",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ds_tgt_file",
-								"type": "DatasetReference",
-								"parameters": {
-									"filenmae": "aa"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "Azure Data Factory Full Course (From Beginner to PRO) | ADF Real-Time Scenarios"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_src_git')]",
-				"[concat(variables('factoryId'), '/datasets/ds_tgt_file')]"
 			]
 		}
 	]

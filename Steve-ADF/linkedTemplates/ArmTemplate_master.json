@@ -104,6 +104,9 @@
 					},
 					"ls_tgt1_properties_typeProperties_url": {
 						"value": "[parameters('ls_tgt1_properties_typeProperties_url')]"
+					},
+					"tr_storageevent_properties_typeProperties_scope": {
+						"value": "[parameters('tr_storageevent_properties_typeProperties_scope')]"
 					}
 				}
 			},
@@ -122,9 +125,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"tr_storageevent_properties_typeProperties_scope": {
-						"value": "[parameters('tr_storageevent_properties_typeProperties_scope')]"
 					},
 					"tr_stror_manager_properties_typeProperties_scope": {
 						"value": "[parameters('tr_stror_manager_properties_typeProperties_scope')]"
