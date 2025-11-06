@@ -2,7 +2,7 @@
 	"name": "Steve-ADF",
 	"properties": {
 		"globalConfigurations": {
-			"PipelineBillingEnabled": "true"
+			"PipelineBillingEnabled": "false"
 		}
 	},
 	"location": "centralindia",
