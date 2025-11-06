@@ -1,0 +1,29 @@
+{
+	"name": "ls_powerquery",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tgt1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "country_response.csv",
+				"folderPath": "ecdc",
+				"fileSystem": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PAR1\u0015\u0000\u0015��\t\u0015��\u0005\u0015����",
+				"type": "String"
+			}
+		]
+	}
+}
